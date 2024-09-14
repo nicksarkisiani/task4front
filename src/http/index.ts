@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://task4back-78im.onrender.com"
+export const API_URL = "https://task4back-78im.onrender.com"
 
 const $api = axios.create({
     withCredentials: true,
