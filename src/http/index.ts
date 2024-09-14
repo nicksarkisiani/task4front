@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://task4back-78im.onrender.com"
+export const API_URL = "http://task4back-78im.onrender.com"
 
 const $api = axios.create({
     withCredentials: true,
@@ -9,6 +9,7 @@ const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
+    config.headers["Access-Control-Allow-Origin"] = true
     return config
 })
 
