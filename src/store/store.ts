@@ -1,0 +1,66 @@
+import {makeAutoObservable} from "mobx";
+import AuthService from "../services/AuthService";
+
+export default class Store {
+    isAuth = false;
+    isLoading = false;
+
+    constructor() {
+        makeAutoObservable(this);
+    }
+
+    setAuth(value: boolean) {
+        this.isAuth = value;
+    }
+
+
+    setLoading(value: boolean) {
+        this.isLoading = value;
+    }
+
+    async login(email: string, password: string) {
+        try {
+            const response = await AuthService.login(email, password);
+            console.log(response)
+            localStorage.setItem('token', response.data.token);
+            this.setAuth(true);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async registration(name: string, email: string, password: string) {
+        try {
+            const response = await AuthService.registration(name, email, password);
+            console.log(response)
+            localStorage.setItem('token', response.data.token);
+            this.setAuth(true);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async logout() {
+        try {
+            localStorage.removeItem('token');
+            this.setAuth(false);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    // async checkAuth() {
+    //     this.setLoading(true);
+    //     try {
+    //         const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
+    //         console.log(response);
+    //         localStorage.setItem('token', response.data.accessToken);
+    //         this.setAuth(true);
+    //         this.setUser(response.data.user);
+    //     } catch (e) {
+    //         console.log(e.response?.data?.message);
+    //     } finally {
+    //         this.setLoading(false);
+    //     }
+    // }
+}
