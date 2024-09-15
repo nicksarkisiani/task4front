@@ -26,6 +26,7 @@ const App: FC = () => {
         await UserService.deleteMany(selectedUsers)
         const token = localStorage.getItem('token');
         if (token) {
+            console.log('1')
             await store.verify(token);
             await getUsers();
         }
