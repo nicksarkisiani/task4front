@@ -91,9 +91,9 @@ const App: FC = () => {
         <div>
             <button onClick={() => store.logout()}>Logout</button>
             <div>
-                <button onClick={() => UserService.blockMany(selectedUsers)}>block</button>
+                <button onClick={blockHandler}>block</button>
                 <button onClick={() => UserService.unblockMany(selectedUsers)}>Unblock</button>
-                <button onClick={() => UserService.deleteMany(selectedUsers)}>delete</button>
+                <button onClick={deleteHandler}>delete</button>
             </div>
             {users.map(user => (
                 <div key={user._id}>
