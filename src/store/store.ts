@@ -47,6 +47,8 @@ export default class Store {
             await AuthService.verify(token);
             this.setAuth(true);
         } catch (e) {
+            localStorage.removeItem('token');
+            this.setAuth(false)
             console.log(e);
         }
     }

@@ -22,12 +22,17 @@ const App: FC = () => {
         });
     };
 
-    useEffect(() => {
+    const verify = () => {
         const token = localStorage.getItem('token');
         if (token) {
             store.verify(token)
             getUsers()
         }
+
+    }
+
+    useEffect(() => {
+        verify()
     }, [store])
 
     async function getUsers() {
@@ -40,15 +45,26 @@ const App: FC = () => {
     }
 
     const testUsers = ["1","2", "3"]
+
+    const deleteHandler = () => {
+        UserService.deleteMany(selectedUsers)
+        verify()
+    }
+
+    const blockHandler = () => {
+        UserService.blockMany(selectedUsers)
+        verify()
+    }
+
     if (!store.isAuth) {
         return (
             <div>
                 <LoginForm/>
                 <RegistrationForm />
                 <div>
-                    <button onClick={() => UserService.blockMany(selectedUsers)}>block</button>
+                    <button onClick={blockHandler}>block</button>
                     <button onClick={() => UserService.unblockMany(selectedUsers)}>Unblock</button>
-                    <button onClick={() => UserService.deleteMany(selectedUsers)}>delete</button>
+                    <button onClick={deleteHandler}>delete</button>
                 </div>
                 {testUsers.map((user: string) => (
                     <div key={user}>
