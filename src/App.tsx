@@ -5,10 +5,12 @@ import {observer} from "mobx-react-lite";
 import UserService from "./services/UserService";
 import {IUser} from "./models/IUser";
 
+
+
 const App: FC = () => {
     const {store} = useContext(Context);
     const [users, setUsers] = useState<IUser[]>([]);
-
+    console.log(users)
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) store.verify(token)

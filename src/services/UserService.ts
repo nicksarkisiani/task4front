@@ -1,9 +1,13 @@
 import $api from "../http";
-import {AxiosResponse} from 'axios';
 import {IUser} from "../models/IUser";
 
+interface IUserArray {
+    users: IUser[]
+}
+
 export default class UserService {
-    static fetchUsers(): Promise<AxiosResponse<IUser[]>> {
-        return $api.get<IUser[]>('/user/users')
+    static async fetchUsers(): Promise<IUser[]> {
+        const {data} = await $api.get<IUserArray>('/user/users')
+        return data.users;
     }
 }
