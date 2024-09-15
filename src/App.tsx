@@ -53,8 +53,6 @@ const App: FC = () => {
         verify();
     }, [verify]);
 
-    const testUsers = ["1","2", "3"]
-
 
     if (!store.isAuth) {
         return (
