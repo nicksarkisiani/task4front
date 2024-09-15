@@ -61,18 +61,6 @@ const App: FC = () => {
             <div>
                 <LoginForm/>
                 <RegistrationForm />
-                <div>
-                    <button onClick={blockHandler}>block</button>
-                    <button onClick={() => UserService.unblockMany(selectedUsers)}>Unblock</button>
-                    <button onClick={deleteHandler}>delete</button>
-                </div>
-                {testUsers.map((user: string) => (
-                    <div key={user}>
-                        <input type={'checkbox'} checked={selectedUsers.includes(user)}
-                               onChange={() => handleCheckboxChange(user)}/>
-                        {user}
-                    </div>
-                ))}
             </div>
         );
     }
