@@ -24,7 +24,10 @@ const App: FC = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) store.verify(token)
+        if (token) {
+            store.verify(token)
+            getUsers()
+        }
     }, [store])
 
     async function getUsers() {
@@ -56,8 +59,6 @@ const App: FC = () => {
                 ))}
             </div>
         );
-    } else {
-        getUsers()
     }
 
     return (
