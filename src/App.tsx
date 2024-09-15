@@ -4,12 +4,12 @@ import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import UserService from "./services/UserService";
 import {IUser} from "./models/IUser";
-
-
+import RegistrationForm from "./components/RegistrationForm";
 
 const App: FC = () => {
     const {store} = useContext(Context);
     const [users, setUsers] = useState<IUser[]>([]);
+
     console.log(users)
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -29,17 +29,16 @@ const App: FC = () => {
         return (
             <div>
                 <LoginForm/>
+                <RegistrationForm />
             </div>
         );
+    } else {
+        getUsers()
     }
 
     return (
         <div>
-            <h1>{store.isAuth ? `Пользователь авторизован` : 'АВТОРИЗУЙТЕСЬ'}</h1>
-            <button onClick={() => store.logout()}>Выйти</button>
-            <div>
-                <button onClick={getUsers}>Получить пользователей</button>
-            </div>
+            <button onClick={() => store.logout()}>Logout</button>
             {users.map(user =>
                 <div key={user.email}>{user.email}</div>
             )}
