@@ -24,22 +24,12 @@ const App: FC = () => {
 
     const deleteHandler = async () => {
         await UserService.deleteMany(selectedUsers)
-        const token = localStorage.getItem('token');
-        console.log(token, localStorage)
-        if (token) {
-
-            await store.verify(token);
-            await getUsers();
-        }
+        await verify()
     }
 
     const blockHandler = async () => {
         await UserService.blockMany(selectedUsers)
-        const token = localStorage.getItem('token');
-        if (token) {
-            await store.verify(token);
-            await getUsers();
-        }
+        await verify()
     }
 
     const getUsers = useCallback(async () => {
