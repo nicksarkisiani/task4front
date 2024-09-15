@@ -37,7 +37,6 @@ const App: FC = () => {
     }
 
     const testUsers = ["1","2", "3"]
-    console.log(selectedUsers)
     if (!store.isAuth) {
         return (
             <div>
