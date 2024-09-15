@@ -19,7 +19,7 @@ const App: FC = () => {
     async function getUsers() {
         try {
             const response = await UserService.fetchUsers();
-            setUsers(response.data);
+            setUsers(response);
         } catch (e) {
             console.log(e);
         }
