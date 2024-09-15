@@ -31,11 +31,11 @@ const App: FC = () => {
         }
     }, []);
 
-    const verify = useCallback(() => {
+    const verify = useCallback(async () => {
         const token = localStorage.getItem('token');
         if (token) {
-            store.verify(token);
-            getUsers();
+            await store.verify(token);
+            await getUsers();
         }
     }, [store, getUsers]);
 
@@ -45,14 +45,14 @@ const App: FC = () => {
 
     const testUsers = ["1","2", "3"]
 
-    const deleteHandler = () => {
-        UserService.deleteMany(selectedUsers)
-        verify()
+    const deleteHandler = async () => {
+        await UserService.deleteMany(selectedUsers)
+        await verify()
     }
 
-    const blockHandler = () => {
-        UserService.blockMany(selectedUsers)
-        verify()
+    const blockHandler = async () => {
+        await UserService.blockMany(selectedUsers)
+        await verify()
     }
 
     if (!store.isAuth) {
