@@ -9,7 +9,7 @@ const App: FC = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) store.verify(token)
-    }, [])
+    }, [store])
 
     if (!store.isAuth) {
         return (
