@@ -44,7 +44,7 @@ export default class Store {
 
     async verify(token: string) {
         try {
-            const response = await AuthService.verify(token);
+            await AuthService.verify(token);
             this.setAuth(true);
         } catch (e) {
             console.log(e);
