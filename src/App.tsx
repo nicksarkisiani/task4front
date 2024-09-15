@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useCallback, useContext, useEffect, useState} from 'react';
 import LoginForm from "./components/LoginForm";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
@@ -22,27 +22,26 @@ const App: FC = () => {
         });
     };
 
-    const verify = () => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            store.verify(token)
-            getUsers()
-        }
-
-    }
-
-    useEffect(() => {
-        verify()
-    }, [store])
-
-    async function getUsers() {
+    const getUsers = useCallback(async () => {
         try {
             const response = await UserService.fetchUsers();
             setUsers(response);
         } catch (e) {
             console.log(e);
         }
-    }
+    }, []);
+
+    const verify = useCallback(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            store.verify(token);
+            getUsers();
+        }
+    }, [store, getUsers]);
+
+    useEffect(() => {
+        verify();
+    }, [verify]);
 
     const testUsers = ["1","2", "3"]
 
