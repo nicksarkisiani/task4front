@@ -22,6 +22,24 @@ const App: FC = () => {
         });
     };
 
+    const deleteHandler = async () => {
+        await UserService.deleteMany(selectedUsers)
+        const token = localStorage.getItem('token');
+        if (token) {
+            await store.verify(token);
+            await getUsers();
+        }
+    }
+
+    const blockHandler = async () => {
+        await UserService.blockMany(selectedUsers)
+        const token = localStorage.getItem('token');
+        if (token) {
+            await store.verify(token);
+            await getUsers();
+        }
+    }
+
     const getUsers = useCallback(async () => {
         try {
             const response = await UserService.fetchUsers();
@@ -45,15 +63,6 @@ const App: FC = () => {
 
     const testUsers = ["1","2", "3"]
 
-    const deleteHandler = async () => {
-        await UserService.deleteMany(selectedUsers)
-        await verify()
-    }
-
-    const blockHandler = async () => {
-        await UserService.blockMany(selectedUsers)
-        await verify()
-    }
 
     if (!store.isAuth) {
         return (
