@@ -51,7 +51,7 @@ const App: FC = () => {
 
     useEffect(() => {
         verify();
-    }, [verify]);
+    }, [verify, store.isAuth]);
 
 
     if (!store.isAuth) {
