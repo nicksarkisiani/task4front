@@ -1,13 +1,30 @@
-import React from 'react';
+import React, {FC, useContext, useEffect} from 'react';
 import LoginForm from "./components/LoginForm";
+import {Context} from "./index";
+import {observer} from "mobx-react-lite";
 
+const App: FC = () => {
+    const {store} = useContext(Context);
 
-function App() {
-  return (
-    <div className="App">
-      <LoginForm />
-    </div>
-  );
-}
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) store.verify(token)
+    }, [])
 
-export default App;
+    if (!store.isAuth) {
+        return (
+            <div>
+                <LoginForm/>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <h1>{store.isAuth ? `Пользователь авторизован` : 'АВТОРИЗУЙТЕСЬ'}</h1>
+            <button onClick={() => store.logout()}>Выйти</button>
+        </div>
+    );
+};
+
+export default observer(App);
