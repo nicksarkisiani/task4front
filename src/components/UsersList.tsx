@@ -18,6 +18,7 @@ const columns: TableColumnsType<IUser> = [
     {
         title: 'isBlocked',
         dataIndex: 'isBlocked',
+        render: value => String(value)
     },
     {
         title: 'Registration date',
