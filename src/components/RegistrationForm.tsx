@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import {Context} from "../index";
 import {Button, Form, Input} from "antd";
+import Title from "antd/lib/typography/Title";
 
 type FieldType = {
     username: string;
@@ -16,7 +17,7 @@ const RegistrationForm = () => {
 
     return (
         <>
-            <h1>Registration</h1>
+            <Title level={2}>Registration</Title>
         <Form
             name="registration"
             labelCol={{ span: 8 }}

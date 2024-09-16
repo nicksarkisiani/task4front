@@ -2,6 +2,7 @@ import React, {FC, useContext, useState} from 'react';
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import {Button, Form, Input} from "antd";
+import Title from "antd/lib/typography/Title";
 
 type FieldType = {
     email: string;
@@ -15,7 +16,7 @@ const LoginForm: FC = () => {
 
     return (
         <>
-            <h1>Login</h1>
+            <Title>Login</Title>
             <Form
                 name="login"
                 labelCol={{ span: 8 }}
