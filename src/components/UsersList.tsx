@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { Divider, Table } from 'antd';
+import {Button, Divider, Table} from 'antd';
 import type { TableColumnsType } from 'antd';
 import {IUser} from "../models/IUser";
 import UserService from "../services/UserService";
+import {DeleteOutlined, LockOutlined, UnlockOutlined} from "@ant-design/icons";
 
 
 const columns: TableColumnsType<IUser> = [
@@ -28,25 +29,6 @@ const columns: TableColumnsType<IUser> = [
     }
 ];
 
-// const data: IUser[] = [
-//     {
-//         name: 'John Brown',
-//         email: "123",
-//         isBlocked: true,
-//         _id: "123",
-//         last_updated: "123",
-//         registration_date: "123"
-//     },
-//     {
-//         name: 'John Brown',
-//         email: "123",
-//         isBlocked: true,
-//         _id: "1234",
-//         last_updated: "123",
-//         registration_date: "123"
-//     },
-// ];
-
 
 interface UsersListProps {
     blockHandler : Function
@@ -66,9 +48,9 @@ const UsersList: React.FC<UsersListProps> = ({blockHandler, deleteHandler, users
     return (
         <div>
             <div>
-                <button onClick={() => blockHandler(selectedRows)}>block</button>
-                <button onClick={() => UserService.unblockMany(selectedRows)}>Unblock</button>
-                <button onClick={() => deleteHandler(selectedRows)}>delete</button>
+                <Button type="primary" onClick={() => blockHandler(selectedRows)}><LockOutlined /> Block</Button>
+                <Button type="primary" onClick={() => UserService.unblockMany(selectedRows)}><UnlockOutlined /></Button>
+                <Button type="primary" onClick={() => deleteHandler(selectedRows)}><DeleteOutlined color="red"/></Button>
             </div>
 
             <Divider/>

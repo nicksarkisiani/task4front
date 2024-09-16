@@ -6,6 +6,7 @@ import UserService from "./services/UserService";
 import {IUser} from "./models/IUser";
 import RegistrationForm from "./components/RegistrationForm";
 import UsersList from "./components/UsersList";
+import {Button} from "antd";
 
 
 const App: FC = () => {
@@ -55,7 +56,7 @@ const App: FC = () => {
 
     return (
         <div>
-            <button onClick={() => store.logout()}>Logout</button>
+            <Button type="primary" onClick={() => store.logout()}>Logout</Button>
             <UsersList deleteHandler={deleteHandler} blockHandler={blockHandler} users={users}/>
         </div>
     );
