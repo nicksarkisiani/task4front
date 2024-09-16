@@ -1,6 +1,12 @@
 import React, {FC, useContext, useState} from 'react';
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import {Button, Form, Input} from "antd";
+
+type FieldType = {
+    email: string;
+    password: string;
+};
 
 const LoginForm: FC = () => {
     const [email, setEmail] = useState<string>('')
@@ -8,23 +14,43 @@ const LoginForm: FC = () => {
     const {store} = useContext(Context);
 
     return (
-        <div>
-            <input
-                onChange={e => setEmail(e.target.value)}
-                value={email}
-                type="text"
-                placeholder='Email'
-            />
-            <input
-                onChange={e => setPassword(e.target.value)}
-                value={password}
-                type="password"
-                placeholder='Password'
-            />
-            <button onClick={() => store.login(email, password)}>
-                Login
-            </button>
-        </div>
+        <>
+            <h1>Login</h1>
+            <Form
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{ maxWidth: 600 }}
+                initialValues={{ remember: true }}
+                onFinish={() => store.login(email, password)}
+                // onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Form.Item<FieldType>
+                    label="Username"
+                    name="email"
+                    rules={[{ required: true, message: 'Please input your email!' }]}
+                >
+                    <Input onChange={e => setEmail(e.target.value)} value={email}/>
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your password!' }]}
+                >
+                    <Input.Password onChange={e => setPassword(e.target.value)} value={password}/>
+                </Form.Item>
+
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+        </>
+
     );
 };
 
